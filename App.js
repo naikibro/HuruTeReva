@@ -19,6 +19,7 @@ const App = () => {
   const [location, setLocation] = useState(null);
 
   const fetchWeather = useCallback(async () => {
+    setWeather(null);
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -71,16 +72,35 @@ const App = () => {
         {weather ? (
           <>
             <View style={styles.report}>
+              <View>
+                <Text
+                  style={{
+                    fontWeight: "300",
+                    fontSize: 40,
+                    alignSelf: "center",
+                  }}
+                >
+                  {weather.current.temp_c}°C
+                </Text>
+
+                <Text
+                  style={{
+                    fontWeight: "300",
+                    fontSize: 40,
+                    alignSelf: "center",
+                  }}
+                >
+                  {weather.location.name}
+                </Text>
+              </View>
+
               <BlurView intensity={50} style={styles.blurViewContainer}>
                 <Image
                   source={{ uri: `https:${weather.current.condition.icon}` }}
                   style={styles.weatherIconImage}
                 />
-                <Text style={styles.title}>
-                  {weather.location.name}, {weather.location.country}
-                </Text>
+                <Text style={styles.title}>{weather.location.country}</Text>
                 <Text>Condition: {weather.current.condition.text}</Text>
-                <Text>Temperature: {weather.current.temp_c}°C</Text>
                 <Text>Humidity: {weather.current.humidity}%</Text>
                 <Text>
                   Wind: {weather.current.wind_dir} at {weather.current.wind_kph}{" "}
@@ -92,8 +112,11 @@ const App = () => {
                 <Text>Last Updated: {weather.current.last_updated}</Text>
               </BlurView>
 
-              <Pressable onPress={fetchWeather}>
-                <Text>Refresh</Text>
+              <Pressable
+                style={{ alignSelf: "center", color: "blue" }}
+                onPress={fetchWeather}
+              >
+                <Text style={{ color: "blue" }}>Refresh</Text>
               </Pressable>
             </View>
           </>
@@ -116,19 +139,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 30,
+    fontWeight: "500",
+    fontSize: 20,
     textAlign: "left",
   },
   report: {
     padding: 15,
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     textAlign: "left",
-    alignSelf: "flex-start",
+    alignSelf: "center",
   },
   blurViewContainer: {
-    padding: 10,
+    padding: 25,
     borderRadius: 20,
     overflow: "hidden",
   },
