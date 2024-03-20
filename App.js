@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
@@ -9,16 +9,20 @@ import {
   View,
   Platform,
   Pressable,
+  ScrollView,
 } from "react-native";
 import WeatherDetails from "./components/WeatherDetails";
+
+// Hooks
 import useWeather from "./hooks/useWeather";
+import ForecastCarroussel from "./components/ForecastCarroussel";
 
 const App = () => {
   const { weather, fetchWeather } = useWeather();
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <ImageBackground
           source={require("./assets/bg.jpg")}
           resizeMode="cover"
@@ -36,6 +40,8 @@ const App = () => {
 
               <WeatherDetails weather={weather} />
 
+              <ForecastCarroussel></ForecastCarroussel>
+
               <Pressable style={styles.refreshButton} onPress={fetchWeather}>
                 <Text style={styles.refreshButtonText}>Refresh</Text>
               </Pressable>
@@ -48,7 +54,7 @@ const App = () => {
           </>
         )}
         <StatusBar hidden />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -60,7 +66,6 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },

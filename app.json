@@ -8,7 +8,8 @@
     "userInterfaceStyle": "light",
     "extra": {
       "WEATHER_API_URL": "https://api.weatherapi.com/v1/current.json",
-      "WEATHER_API_KEY": "8c543a3f286f4b8e8b3193513241903"
+      "WEATHER_API_KEY": "8c543a3f286f4b8e8b3193513241903",
+      "WEATHER_FORECAST_API_URL": "https://api.weatherapi.com/v1/forecast.json"
     },
     "plugins": [
       [
