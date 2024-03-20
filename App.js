@@ -11,43 +11,13 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import * as Location from "expo-location";
 import { BlurView } from "expo-blur";
 
+// hooks
+import useWeather from "./hooks/useWeather";
+
 const App = () => {
-  const [weather, setWeather] = useState(null);
-  const [location, setLocation] = useState(null);
-
-  const fetchWeather = useCallback(async () => {
-    setWeather(null);
-    try {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log("location", location);
-
-      const weatherApiKey = "8c543a3f286f4b8e8b3193513241903";
-      const response = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=${weatherApiKey}&q=${location.coords.latitude},${location.coords.longitude}&aqi=no`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch weather data");
-      }
-      const data = await response.json();
-      setWeather(data);
-    } catch (error) {
-      console.error("Error fetching weather:", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchWeather();
-  }, [fetchWeather]);
+  const { weather, location, errorMsg, fetchWeather } = useWeather();
 
   console.log("weather", weather);
 

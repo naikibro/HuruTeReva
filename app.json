@@ -4,8 +4,12 @@
     "slug": "Reva",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
+    "extra": {
+      "WEATHER_API_URL": "https://api.weatherapi.com/v1/current.json",
+      "WEATHER_API_KEY": "8c543a3f286f4b8e8b3193513241903"
+    },
     "plugins": [
       [
         "expo-location",
@@ -15,8 +19,8 @@
       ]
     ],
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/logo.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
@@ -25,12 +29,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo.png"
     }
   }
 }
