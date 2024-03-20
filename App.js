@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -11,82 +10,34 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import { BlurView } from "expo-blur";
-
-// hooks
+import WeatherDetails from "./components/WeatherDetails";
 import useWeather from "./hooks/useWeather";
 
 const App = () => {
-  const { weather, location, errorMsg, fetchWeather } = useWeather();
-
-  console.log("weather", weather);
+  const { weather, fetchWeather } = useWeather();
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        marginTop: 0,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      }}
-    >
+    <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
         <ImageBackground
           source={require("./assets/bg.jpg")}
           resizeMode="cover"
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-          }}
+          style={styles.imageBackground}
         />
         {weather ? (
           <>
             <View style={styles.report}>
               <View>
-                <Text
-                  style={{
-                    fontWeight: "300",
-                    fontSize: 40,
-                    alignSelf: "center",
-                  }}
-                >
+                <Text style={styles.temperature}>
                   {weather.current.temp_c}°C
                 </Text>
-
-                <Text
-                  style={{
-                    fontWeight: "300",
-                    fontSize: 40,
-                    alignSelf: "center",
-                  }}
-                >
-                  {weather.location.name}
-                </Text>
+                <Text style={styles.locationName}>{weather.location.name}</Text>
               </View>
 
-              <BlurView intensity={50} style={styles.blurViewContainer}>
-                <Image
-                  source={{ uri: `https:${weather.current.condition.icon}` }}
-                  style={styles.weatherIconImage}
-                />
-                <Text style={styles.title}>{weather.location.country}</Text>
-                <Text>Condition: {weather.current.condition.text}</Text>
-                <Text>Humidity: {weather.current.humidity}%</Text>
-                <Text>
-                  Wind: {weather.current.wind_dir} at {weather.current.wind_kph}{" "}
-                  km/h
-                </Text>
-                <Text>Pressure: {weather.current.pressure_mb} mb</Text>
-                <Text>Visibility: {weather.current.vis_km} km</Text>
-                <Text>UV Index: {weather.current.uv}</Text>
-                <Text>Last Updated: {weather.current.last_updated}</Text>
-              </BlurView>
+              <WeatherDetails weather={weather} />
 
-              <Pressable
-                style={{ alignSelf: "center", color: "blue" }}
-                onPress={fetchWeather}
-              >
-                <Text style={{ color: "blue" }}>Refresh</Text>
+              <Pressable style={styles.refreshButton} onPress={fetchWeather}>
+                <Text style={styles.refreshButtonText}>Refresh</Text>
               </Pressable>
             </View>
           </>
@@ -103,15 +54,20 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    marginTop: 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontWeight: "500",
-    fontSize: 20,
-    textAlign: "left",
+  imageBackground: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
   },
   report: {
     padding: 15,
@@ -120,14 +76,22 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignSelf: "center",
   },
-  blurViewContainer: {
-    padding: 25,
-    borderRadius: 20,
-    overflow: "hidden",
+  temperature: {
+    fontWeight: "300",
+    fontSize: 40,
+    alignSelf: "center",
   },
-  weatherIconImage: {
-    width: 100,
-    height: 100,
+  locationName: {
+    fontWeight: "300",
+    fontSize: 40,
+    alignSelf: "center",
+  },
+  refreshButton: {
+    alignSelf: "center",
+    color: "blue",
+  },
+  refreshButtonText: {
+    color: "blue",
   },
 });
 
