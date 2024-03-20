@@ -10,6 +10,7 @@ import {
   Platform,
   Pressable,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import WeatherDetails from "./components/WeatherDetails";
 
@@ -22,16 +23,16 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <ImageBackground
+        source={require("./assets/bg.jpg")}
+        resizeMode="cover"
+        style={styles.imageBackground}
+      />
       <ScrollView contentContainerStyle={styles.container}>
-        <ImageBackground
-          source={require("./assets/bg.jpg")}
-          resizeMode="cover"
-          style={styles.imageBackground}
-        />
         {weather ? (
           <>
             <View style={styles.report}>
-              <View>
+              <View style={{ marginBottom: 40 }}>
                 <Text style={styles.temperature}>
                   {weather.current.temp_c}°C
                 </Text>
@@ -40,7 +41,18 @@ const App = () => {
 
               <WeatherDetails weather={weather} />
 
-              <ForecastCarroussel></ForecastCarroussel>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: 20,
+                  fontWeight: "300",
+                  marginTop: 30,
+                }}
+              >
+                Weather forecast for next 7 days
+              </Text>
+
+              <ForecastCarroussel />
 
               <Pressable style={styles.refreshButton} onPress={fetchWeather}>
                 <Text style={styles.refreshButtonText}>Refresh</Text>
@@ -48,10 +60,10 @@ const App = () => {
             </View>
           </>
         ) : (
-          <>
+          <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#0000ff" />
             <Text>Loading weather...</Text>
-          </>
+          </View>
         )}
         <StatusBar hidden />
       </ScrollView>
@@ -68,11 +80,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
+    minHeight: Dimensions.get("window").height,
   },
   imageBackground: {
     position: "absolute",
     width: "100%",
     height: "100%",
+    opacity: 1,
   },
   report: {
     padding: 15,
@@ -92,11 +106,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   refreshButton: {
+    marginVertical: 30,
     alignSelf: "center",
     color: "blue",
   },
   refreshButtonText: {
     color: "blue",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
