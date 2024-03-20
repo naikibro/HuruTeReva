@@ -37,6 +37,34 @@ npm install
 npx expo start
 ```
 
+---
+
+## Build the app
+
+You gotta first create and have an Expo account
+
+### Install the latest eas cli
+
+```sh
+npm install -g eas-cli
+eas login
+eas build:configure
+```
+
+### Build locally with eas
+
+```sh
+eas build --local --profile naiki #--platform android
+```
+
+### Or build in the cloud with eas
+
+```
+eas build
+```
+
+---
+
 ## Usage
 
 After starting the project, you can run it on a physical device using the Expo Go app or on a simulator/emulator. The app will request location permissions on startup. Once granted, it fetches and displays the current weather information based on your location. You can refresh the weather data by pressing the "Refresh" button.
