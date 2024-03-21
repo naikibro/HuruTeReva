@@ -23,8 +23,13 @@
       ]
     ],
     "splash": {
+<<<<<<< Updated upstream
       "image": "./assets/logo.png",
       "resizeMode": "cover",
+=======
+      "image": "./assets/logo-alpha.png",
+      "resizeMode": "contain",
+>>>>>>> Stashed changes
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [

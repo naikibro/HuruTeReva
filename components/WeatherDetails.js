@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   blurViewContainer: {
     padding: 25,
     borderRadius: 20,
+
     overflow: "hidden",
     borderWidth: 1,
     borderColor: "rgba(0, 0, 0, .1)",

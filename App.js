@@ -32,7 +32,7 @@ const App = () => {
         {weather ? (
           <>
             <View style={styles.report}>
-              <View style={{ marginBottom: 40 }}>
+              <View style={{ marginBottom: 40, marginTop: 100 }}>
                 <Text style={styles.temperature}>
                   {weather.current.temp_c}°C
                 </Text>
@@ -67,9 +67,12 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   container: {
+    display: "flex",
+    padding: 10,
     alignItems: "center",
     justifyContent: "center",
     minHeight: Dimensions.get("window").height,
+    minWidth: Dimensions.get("window").width,
   },
   imageBackground: {
     position: "absolute",
@@ -78,8 +81,9 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   report: {
-    padding: 15,
     flex: 1,
+    width: "98%",
+    overflow: "visible",
     justifyContent: "space-evenly",
     textAlign: "left",
     alignSelf: "center",

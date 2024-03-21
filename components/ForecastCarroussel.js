@@ -52,7 +52,7 @@ const ForecastCarrousel = () => {
               marginTop: 30,
             }}
           >
-            Weather forecast for next 7 days
+            Weather forecast for the next 7 days
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {forecasts.map((forecast, index) => (
