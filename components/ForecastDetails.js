@@ -2,12 +2,14 @@ import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
 
+import getDayOfWeekWithDate from "../utils/functions";
+
 const ForecastDetails = ({ weather }) => {
   return (
     <BlurView intensity={50} style={styles.blurViewContainer}>
       {weather.forecast.forecastday.map((day, index) => (
         <View key={index} style={{ marginBottom: 20 }}>
-          <Text style={styles.title}>{day.date}</Text>
+          <Text style={styles.title}>{getDayOfWeekWithDate(day.date)}</Text>
           <Text>
             <Text style={{ color: "blue" }}>{day.day.mintemp_c}°C</Text> -
             <Text style={{ color: "green" }}>{day.day.maxtemp_c}°C</Text>
@@ -34,12 +36,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     borderWidth: 1,
-    borderColor: "rgba(210, 210, 255, .5)",
+    borderColor: "rgba(0, 0, 0, .1)",
   },
   weatherIconImage: {
     width: 100,
     height: 100,
-    alignSelf: "center", // Center the image
+    alignSelf: "center",
   },
   title: {
     fontWeight: "500",

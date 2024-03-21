@@ -41,17 +41,6 @@ const App = () => {
 
               <WeatherDetails weather={weather} />
 
-              <Text
-                style={{
-                  color: "black",
-                  fontSize: 20,
-                  fontWeight: "300",
-                  marginTop: 30,
-                }}
-              >
-                Weather forecast for next 7 days
-              </Text>
-
               <ForecastCarroussel />
 
               <Pressable style={styles.refreshButton} onPress={fetchWeather}>
