@@ -5,24 +5,9 @@ import useForecast from "../hooks/useForecast";
 
 import ForecastDetails from "./ForecastDetails";
 
-const ForecastCarrousel = () => {
-  const [forecastPeriod, setForecastPeriod] = useState([]);
+const ForecastCarrousel = ({ forecastPeriod }) => {
   const { fetchForecast } = useForecast();
   const [forecasts, setForecasts] = useState([]);
-
-  useEffect(() => {
-    const dates = Array.from({ length: 7 }, (_, i) => {
-      const futureDate = new Date();
-      futureDate.setDate(futureDate.getDate() + i);
-      const formattedDate = futureDate
-        .toISOString()
-        .slice(0, 10)
-        .replace(/-/g, "/");
-      return formattedDate;
-    });
-
-    setForecastPeriod(dates);
-  }, []);
 
   useEffect(() => {
     const fetchForecasts = async () => {

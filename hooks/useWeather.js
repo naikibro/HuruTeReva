@@ -8,6 +8,7 @@ const useWeather = () => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const fetchWeather = useCallback(async () => {
+    setWeather(null);
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {

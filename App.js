@@ -16,10 +16,17 @@ import WeatherDetails from "./components/WeatherDetails";
 
 // Hooks
 import useWeather from "./hooks/useWeather";
+import useForecastPeriod from "./hooks/useForecastPeriod";
+
 import ForecastCarroussel from "./components/ForecastCarroussel";
 
 const App = () => {
   const { weather, fetchWeather } = useWeather();
+  const { forecastPeriod } = useForecastPeriod();
+
+  const handleRefresh = () => {
+    fetchWeather();
+  };
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -41,9 +48,12 @@ const App = () => {
 
               <WeatherDetails weather={weather} />
 
-              <ForecastCarroussel />
+              <ForecastCarroussel
+                forecastPeriod={forecastPeriod}
+                fetchWeather={fetchWeather}
+              />
 
-              <Pressable style={styles.refreshButton} onPress={fetchWeather}>
+              <Pressable style={styles.refreshButton} onPress={handleRefresh}>
                 <Text style={styles.refreshButtonText}>Refresh</Text>
               </Pressable>
             </View>
